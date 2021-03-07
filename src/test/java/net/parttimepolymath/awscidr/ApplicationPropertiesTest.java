@@ -11,4 +11,19 @@ class ApplicationPropertiesTest {
         assertNotNull(ApplicationProperties.getAppName());
     }
 
+    @Test
+    void getVersion() {
+        assertNotNull(ApplicationProperties.getVersion());
+    }
+
+    @Test
+    void getBuildDate() {
+        assertNotNull(ApplicationProperties.getBuildDate());
+    }
+
+    @Test
+    void getDescription() {
+        assertNotNull(ApplicationProperties.getDescription());
+    }
+
 }

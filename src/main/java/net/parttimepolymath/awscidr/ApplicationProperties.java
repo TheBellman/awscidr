@@ -1,7 +1,7 @@
 package net.parttimepolymath.awscidr;
 
 import java.util.Properties;
-
+import net.parttimepolymath.utils.ResourceUtils;
 /**
  * convenience wrapper around the application properties with getter semantics.
  *
@@ -38,6 +38,11 @@ public final class ApplicationProperties {
         return PROPERTIES.getProperty("application.build.date", "");
     }
 
+    /**
+     * get a combined description of the version and name information.
+     *
+     * @return a non-null but possibly empty string.
+     */
     public static String getDescription() {
         return String.format("%s %s (%s)", getAppName(), getVersion(), getBuildDate());
     }

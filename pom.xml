@@ -50,6 +50,12 @@
     <dependencies>
         <dependency>
             <groupId>net.parttimepolymath</groupId>
+            <artifactId>ldutils</artifactId>
+            <version>1.0-20210307.141821</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.parttimepolymath</groupId>
             <artifactId>iplib</artifactId>
             <version>1.0-20210306.194311</version>
         </dependency>
