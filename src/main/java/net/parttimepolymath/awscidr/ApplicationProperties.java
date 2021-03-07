@@ -19,4 +19,26 @@ public final class ApplicationProperties {
     public static String getAppName() {
         return PROPERTIES.getProperty("application.name", "");
     }
+
+    /**
+     * get the application version from application.version
+     *
+     * @return a non-null but possibly empty string.
+     */
+    public static String getVersion() {
+        return PROPERTIES.getProperty("application.version", "");
+    }
+
+    /**
+     * get the application build date from application.build.date
+     *
+     * @return a non-null but possibly empty string.
+     */
+    public static String getBuildDate() {
+        return PROPERTIES.getProperty("application.build.date", "");
+    }
+
+    public static String getDescription() {
+        return String.format("%s %s (%s)", getAppName(), getVersion(), getBuildDate());
+    }
 }

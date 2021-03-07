@@ -1,16 +1,13 @@
 package net.parttimepolymath.awscidr;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.*;
 
 /**
  * This main class is the entry point which provides the command line interface via commons-cli.
- * Note the use of the project lombok logging annotation.
  *
  * @author Robert Hook
  * @since 2021-03-06
  */
-@Slf4j
 public class Main {
 
     /**
@@ -19,22 +16,30 @@ public class Main {
      * @param args the command line arguments, assumed non null but possibly empty.
      */
     public static void main(final String[] args) {
-        log.info("started");
-
         Options options = options();
         try {
             CommandLine line = new DefaultParser().parse(options, args);
 
-            if (line.hasOption('?')) {
+            if (line.hasOption('?') || (line.hasOption('g') && !line.hasOption('f'))) {
                 help(options);
-            } else {
-                Application instance=Application.builder().build();
+            }
+            else if (line.hasOption('v')) {
+                System.out.println(ApplicationProperties.getDescription());
+            }
+            else
+            {
+                Application instance=Application.builder()
+                        .servicesMode(line.hasOption('s'))
+                        .regionsMode(line.hasOption('r'))
+                        .regionFilter(line.getOptionValue('f'))
+                        .serviceFilter(line.getOptionValue('g'))
+                        .ipv6(line.hasOption('6'))
+                        .build();
                 instance.run();
             }
         } catch (ParseException ex) {
             help(options);
         }
-        log.info("ended");
     }
 
     /**
@@ -54,7 +59,14 @@ public class Main {
      */
     private static Options options() {
         Options options = new Options();
-//        options.addOption(Option.builder("m").longOpt("mode").desc("mode - either regions or services").hasArg().numberOfArgs(1).argName("mode").build());
+        options.addOption(Option.builder("r").longOpt("regions").desc("list regions").build());
+        options.addOption(Option.builder("s").longOpt("services").desc("list services (ignored if 'r' specified)").build());
+        options.addOption(Option.builder("6").longOpt("ipv6").desc("use ipv6 ranges instead of ipv4").build());
+
+        options.addOption(Option.builder("f").longOpt("fr").desc("filter by region").hasArg().numberOfArgs(1).argName("region").build());
+        options.addOption(Option.builder("g").longOpt("fs").desc("filter by service - required region as well").hasArg().argName("service").numberOfArgs(1).build());
+
+        options.addOption(Option.builder("v").longOpt("version").desc("print version").build());
         options.addOption((Option.builder("?").longOpt("help").desc("print this help message").build()));
 
         return options;

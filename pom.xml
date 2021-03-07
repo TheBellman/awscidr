@@ -29,20 +29,21 @@
         <lang.version>3.11</lang.version>
         <cli.version>1.4</cli.version>
         <slf.version>1.7.30</slf.version>
+        <caurl>https://development-889199313043.d.codeartifact.eu-west-1.amazonaws.com/maven/maven/</caurl>
     </properties>
 
     <distributionManagement>
         <repository>
             <id>development--maven</id>
             <name>development--maven</name>
-            <url>https://development-889199313043.d.codeartifact.eu-west-1.amazonaws.com/maven/maven/</url>
+            <url>${caurl}</url>
         </repository>
     </distributionManagement>
 
     <repositories>
         <repository>
             <id>development--maven</id>
-            <url>https://development-889199313043.d.codeartifact.eu-west-1.amazonaws.com/maven/maven/</url>
+            <url>${caurl}</url>
         </repository>
     </repositories>
 
